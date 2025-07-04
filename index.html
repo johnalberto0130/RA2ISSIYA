@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head>
+<script src="js/firebase-app-compat.js"></script>
+<script src="js/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD0sIo4EMEiCShU5WCUdvrOdA8NMz1YU6E",
+  authDomain: "earnic-1d851.firebaseapp.com",
+  projectId: "earnic-1d851",
+  storageBucket: "earnic-1d851.appspot.com",
+  messagingSenderId: "99912019970",
+  appId: "1:99912019970:web:59458d461f690ee260771b",
+  measurementId: "G-DV2B27MYJN"
+};
+firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = 'index.html';
+  }
+});
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earnic 💸 Dashboard</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
+  color: white;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+header h1 {
+  color: #3b82f6;
+  text-shadow: 0 0 10px #3b82f6;
+}
+header .profile {
+  cursor: pointer;
+  position: relative;
+}
+.profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: #222;
+  border: 1px solid #00c957;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.profile-menu button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.profile-menu button:hover {
+  background: #333;
+}
+.balance {
+  font-size: 18px;
+  color: #00c957;
+  margin-left: 20px;
+}
+.glow {
+  color: #3b82f6;
+  text-shadow: 0 0 10px #3b82f6;
+}
+.progress-bar {
+  width: 90%;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px auto;
+  height: 20px;
+}
+.progress {
+  width: 10%; /* 10% visible per your request */
+  background: #00c957;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+.animated-btn {
+  margin: 20px auto;
+  display: block;
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  background: #00c957;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.05);}
+  100% {transform: scale(1);}
+}
+table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+.withdraw-btn {
+  display: block;
+  margin: 20px auto;
+  background: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #00c957;
+}
+.modal-content button {
+  margin-top: 10px;
+}
+.referral-text {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #00c957;
+  text-shadow: 0 0 8px #00c957;
+}
+</style>
+<link rel="me" href="https://www.blogger.com/profile/11449324704817426846">
+<meta name="google-adsense-platform-account" content="ca-host-pub-1556223355139109">
+<meta name="google-adsense-platform-domain" content="blogspot.com">
+
+<script type="text/javascript" language="javascript">
+  // Supply ads personalization default for EEA readers
+  // See https://www.blogger.com/go/adspersonalization
+  adsbygoogle = window.adsbygoogle || [];
+  if (typeof adsbygoogle.requestNonPersonalizedAds === 'undefined') {
+    adsbygoogle.requestNonPersonalizedAds = 1;
+  }
+</script>
+
+</head>
+<body><header>
+  <h1>Earnic 💸</h1>
+  <div style="display:flex; align-items:center;">
+    <span class="balance">Balance: $5</span>
+    <div class="profile" onclick="toggleProfileMenu()">👤
+      <div class="profile-menu" id="profileMenu">
+        <button onclick="openModal('paymentModal')">Payment Method</button>
+        <button onclick="alert('Logged out')">Log out</button>
+      </div>
+    </div>
+  </div>
+</header><h2 style="text-align:center;" class="glow">Hi 👋 Dear Let's get started</h2><div class="progress-bar">
+  <div class="progress"></div>
+</div><button class="animated-btn" onclick="window.open('https://facebook.com', '_blank')">
+  👉💰 Click here to Complete offers and Earn Money 💰👈
+</button><table>
+<tbody><tr><th>Task Type</th><th>Earnings</th></tr>
+<tr><td>Survey</td><td>$18</td></tr>
+<tr><td>Download & Play</td><td>$20–$35</td></tr>
+<tr><td>Referral Bonus</td><td>$6 per friend</td></tr>
+</tbody></table><div class="referral-text">
+  Earn $6 For every friend
+</div>
+<div style="text-align:center; margin-top:10px;">
+  <input type="text" id="referralLink" value="https://earnic.co/ref/yourid" readonly="" style="width:300px;">
+  <button onclick="copyReferral()">📋 Copy</button>
+</div><button class="withdraw-btn" onclick="openModal('withdrawModal')">Withdraw</button>
+
+<!-- Modals --><div class="modal" id="giftModal">
+  <div class="modal-content">
+    <h3>🎁 Congratulations</h3>
+    <p>You have received $5 welcome bonus!</p>
+    <button onclick="closeModal('giftModal')">Close</button>
+  </div>
+</div><div class="modal" id="withdrawModal">
+  <div class="modal-content">
+    <p>Minimum withdrawal amount not reached yet.</p>
+    <button onclick="closeModal('withdrawModal')">Close</button>
+  </div>
+</div><div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <h3>Payment Method</h3>
+    <select id="method" onchange="showPaymentFields()">
+      <option value="">Select Method</option>
+      <option value="paypal">PayPal</option>
+      <option value="bank">Bank Transfer</option>
+      <option value="crypto">Crypto (TRC20)</option>
+    </select>
+    <div id="paymentFields" style="margin-top:10px;"></div>
+    <button onclick="savePayment()">Save</button>
+  </div>
+</div><script>
+function toggleProfileMenu() {
+  const menu = document.getElementById('profileMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+function openModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+function copyReferral() {
+  const link = document.getElementById('referralLink');
+  link.select(); link.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  alert("Referral link copied ✅");
+}
+function showPaymentFields() {
+  const method = document.getElementById('method').value;
+  const container = document.getElementById('paymentFields');
+  container.innerHTML = '';
+  if (method === 'paypal') {
+    container.innerHTML = `<input type="email" placeholder="PayPal Email">`;
+  } else if (method === 'bank') {
+    container.innerHTML = `
+      <input type="text" placeholder="IBAN / Account Number"><br>
+      <input type="text" placeholder="Routing Number / BIC / SWIFT">
+    `;
+  } else if (method === 'crypto') {
+    container.innerHTML = `<input type="text" placeholder="TRC20 Wallet Address">`;
+  }
+}
+function savePayment() {
+  alert("Payment information saved successfully ✅");
+  closeModal('paymentModal');
+}
+window.onload = () => {
+  openModal('giftModal');
+};
+</script>
+
+<!-- 'It is your responsibility to notify your visitors about cookies used and data collected on your blog. Blogger makes a standard notification available for you to use on your blog, and you can customise it or replace it with your own notice. See http://www.blogger.com/go/cookiechoices for more details.' -->
+<script src="js/cookienotice.js" defer=""></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.cookieChoices && cookieChoices.showCookieConsentBar && cookieChoices.showCookieConsentBar(
+        (window.cookieOptions && cookieOptions.msg) || 'This site uses cookies from Google to deliver its services and to analyse traffic. Your IP address and user agent are shared with Google, together with performance and security metrics, to ensure quality of service, generate usage statistics and to detect and address abuse.',
+        (window.cookieOptions && cookieOptions.close) || 'Got it',
+        (window.cookieOptions && cookieOptions.learn) || 'Learn more',
+        (window.cookieOptions && cookieOptions.link) || 'https://www.blogger.com/go/blogspot-cookies');
+  });
+</script>
+
+
+</body></html>

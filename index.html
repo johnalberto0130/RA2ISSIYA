@@ -1,1 +1,760 @@
-<!DOCTYPE html><html lang="en"> <head>   <meta charset="UTF-8" />   <meta name="viewport" content="width=device-width, initial-scale=1.0" />   <title>Earnic 💸</title>   <style>     body {       margin: 0;       font-family: 'Segoe UI', sans-serif;       background-color: #111;       color: white;     }     header, section, footer {       padding: 20px;       max-width: 1000px;       margin: auto;     }     .glow {       color: #3b82f6;       text-shadow: 0 0 10px #3b82f6;     }     .btn {       padding: 10px 20px;       border: none;       border-radius: 5px;       cursor: pointer;       font-weight: bold;     }     .btn-blue { background: #3b82f6; color: white; }     .btn-green { background: #00c957; color: black; }     .card {       background: #1a1a1a;       border-radius: 12px;       padding: 20px;       margin: 10px;       border: 1px solid #00c957;     }     .testimonial img {       border-radius: 50%;       border: 4px solid #3b82f6;       width: 60px;       height: 60px;     }     .section-title {       font-size: 24px;       margin-bottom: 10px;       color: #3b82f6;       text-shadow: 0 0 8px #3b82f6;     }     table {       width: 100%;       border-collapse: collapse;     }     th, td {       padding: 10px;       border-bottom: 1px solid #333;     }     .footer-links a {       color: #aaa;       margin: 0 10px;       text-decoration: none;     }     .green-box {       background: rgba(0, 201, 87, 0.1);       border: 1px solid #00c957;       border-radius: 12px;       padding: 15px;       color: #00c957;       margin-bottom: 10px;     }     .modal {       display: none;       position: fixed;       top: 0; left: 0;       width: 100%; height: 100%;       background: rgba(0,0,0,0.7);       justify-content: center;       align-items: center;       z-index: 1000;     }     .modal-content {       background: #1e1e1e;       padding: 25px;       border-radius: 15px;       width: 320px;       box-shadow: 0 0 25px #3b82f6;       font-weight: bold;       color: #fff;       position: relative;     }     .modal-content input {       width: 100%;       padding: 12px;       margin: 10px 0;       border: none;       border-radius: 8px;       font-weight: bold;       background: #2a2a2a;       color: white;     }     .close {       position: absolute;       top: 10px; right: 15px;       font-size: 20px;       cursor: pointer;       color: #888;     }     .eye {       position: absolute;       right: 20px;       top: 50%;       transform: translateY(-50%);       cursor: pointer;     }     .popup {       position: fixed;       top: 50%;       left: 50%;       transform: translate(-50%, -50%);       background: #1e1e1e;       color: #00c957;       padding: 20px;       border-radius: 10px;       box-shadow: 0 0 15px #00c957;       z-index: 2000;       display: none;       text-align: center;     }     .popup button {       margin-top: 10px;     }     .cashout-container {       display: flex;       flex-direction: column;       gap: 10px;       overflow: hidden;       height: 100px;     }     .cashout-item {       display: flex;       align-items: center;       gap: 10px;       color: #3b82f6;       animation: fadeIn 0.5s ease-in-out;     }     .cashout-item img {       width: 24px;       height: 24px;     }     @keyframes fadeIn {       from { opacity: 0; transform: translateY(20px); }       to { opacity: 1; transform: translateY(0); }     }   </style> </head> <body><header style="display:flex; justify-content:space-between; align-items:center;">   <h1 class="glow">Earnic 💸</h1>   <div>     <button class="btn btn-green" onclick="openModal('signupModal')">Sign Up</button>     <button class="btn btn-blue" onclick="openModal('loginModal')">Login</button>   </div> </header><section>   <h2 class="glow">Earnic 💸 — Your Easy Money Hub</h2>   <p style="font-size:18px; color:#00c957;">💸 Earn effortlessly — complete easy tasks and get paid in just 30 minutes!</p> </section><section>   <h3 class="section-title">Why Us?</h3>   <div class="green-box">⚡ Fast Support: We are here to help anytime!</div>   <div class="green-box">💰 Instant Payout: Get paid within 30 minutes!</div>   <div class="green-box">👥 Great Commission: $5 for every friend!</div>   <p class="glow">Earnic isn’t just platform — it’s your partner in success.</p> </section><section>   <h3 class="section-title">Task Type</h3>   <table>     <tr><th>Task Type</th><th>Earnings</th></tr>     <tr><td>Survey</td><td>$12</td></tr>     <tr><td>Download & Play</td><td>$15 to $25</td></tr>     <tr><td>Referral Bonus</td><td>$5 per friend</td></tr>   </table> </section><section>   <h3 class="section-title">🗣️ What Our Users Say</h3>   <div class="card testimonial">     <img src="https://i.imgur.com/ugGigBp.jpeg">     <p>"Earnic is real and fast! I received my money in minutes. 😍" — Daniel</p>   </div>   <div class="card testimonial">     <img src="https://i.imgur.com/RSMceSO.jpeg">     <p>"Tasks are super easy, and the referral bonus is amazing! ✨🌟" — Mario</p>   </div>   <div class="card testimonial">     <img src="https://i.imgur.com/zdvGp1M.jpeg">     <p>"I invited friends and got paid instantly. Highly recommend. ❤️‍🔥👻" — Elena</p>   </div> </section><section>   <h3 class="section-title" style="color:red">💰 Live Cashouts</h3>   <div class="cashout-container" id="cashoutContainer"></div> </section><section>   <h3 class="section-title">Join Us and Start Now</h3>   <button class="btn btn-green" onclick="openModal('signupModal')">Sign Up</button> </section><footer style="text-align:center; font-size:14px; margin-top:40px;">   <p>© 2025 Earnic. All rights reserved.</p>   <div class="footer-links">     <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a> | <a href="#">Terms of Use</a>   </div> </footer>  <!-- Signup Modal --><div class="modal" id="signupModal">   <div class="modal-content">     <span class="close" onclick="closeModal('signupModal')">&times;</span>     <h3 class="glow">Create Account</h3>     <input type="text" placeholder="Full Name" id="signupName" />     <input type="email" placeholder="Email" id="signupEmail" />     <div style="position:relative;">       <input type="password" placeholder="Password" id="signupPass" />       <span class="eye" onclick="togglePassword('signupPass')">👁️</span>     </div>     <button class="btn btn-green" onclick="createAccount()">Create Account</button>   </div> </div>  <!-- Login Modal --><div class="modal" id="loginModal">   <div class="modal-content">     <span class="close" onclick="closeModal('loginModal')">&times;</span>     <h3 class="glow">Login</h3>     <input type="email" placeholder="Email" id="loginEmail" />     <div style="position:relative;">       <input type="password" placeholder="Password" id="loginPass" />       <span class="eye" onclick="togglePassword('loginPass')">👁️</span>     </div>     <button class="btn btn-blue" onclick="login()">Login</button>   </div> </div>  <div class="popup" id="successPopup">   <p>Your account has been created successfully ✅<br>Click on the Login!</p>   <button class="btn btn-blue" onclick="gotoLogin()">Login</button> </div>  <script>function openModal(id){document.getElementById(id).style.display='flex'}function closeModal(id){document.getElementById(id).style.display='none'}function togglePassword(id){const input=document.getElementById(id);input.type=input.type==='password'?'text':'password'}function createAccount(){closeModal('signupModal');document.getElementById('successPopup').style.display='block';const signupEmail=document.getElementById('signupEmail').value;const signupPass=document.getElementById('signupPass').value;document.getElementById('loginEmail').value=signupEmail;document.getElementById('loginPass').value=signupPass;}function gotoLogin(){document.getElementById('successPopup').style.display='none';openModal('loginModal')}function login(){window.location.href='https://johnalberto0130.github.io/Dashboard/'}</script>  <script>const cashouts=[{name:'Lucas Martin',amount:'$18',icon:'https://i.imgur.com/r5Dazsj.png'},{name:'Chloé Dubois',amount:'$28',icon:'https://i.imgur.com/N9kGxzM.png'},{name:'Oliver Schmidt',amount:'$35',icon:'https://i.imgur.com/zWQMZkj.png'},{name:'Amélie Moreau',amount:'$65',icon:'https://i.imgur.com/r5Dazsj.png'},{name:'Noah Jensen',amount:'$107',icon:'https://i.imgur.com/N9kGxzM.png'},{name:'Emily Keller',amount:'$56',icon:'https://i.imgur.com/r5Dazsj.png'},{name:'Liam Novak',amount:'$87',icon:'https://i.imgur.com/N9kGxzM.png'},{name:'Emma Rossi',amount:'$45',icon:'https://i.imgur.com/zWQMZkj.png'}];let index=0;function updateCashouts(){const container=document.getElementById('cashoutContainer');const div=document.createElement('div');const data=cashouts[index];div.className='cashout-item';div.innerHTML=`<img src="${data.icon}" /> ${data.name} RECEIVED <strong>${data.amount}</strong>`;container.appendChild(div);if(container.children.length>3){container.removeChild(container.children[0])}index=(index+1)%cashouts.length}setInterval(updateCashouts,3000);updateCashouts();updateCashouts();updateCashouts();</script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OXYGENE GYM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --main-color: #00ff88;
+            --dark-bg: #111;
+            --text-color: #f0f0f0;
+            --shadow-light: rgba(0, 255, 136, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -10;
+        }
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -5;
+        }
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .lang-toggle {
+            display: flex;
+            gap: 10px;
+        }
+        .lang-toggle img {
+            width: 30px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .lang-toggle img:hover {
+            transform: scale(1.1);
+        }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+            color: var(--text-color);
+        }
+        .hero-content {
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-content .logo-img {
+            max-width: 250px;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 4.5em;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px var(--shadow-dark);
+            letter-spacing: 3px;
+            margin-bottom: 0.1em;
+        }
+        .hero-content p {
+            font-size: 1.5em;
+            font-weight: 300;
+            text-shadow: 1px 1px 5px var(--shadow-dark);
+        }
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 3em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: #FF8C00;
+            text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+        }
+        .btn {
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            background: var(--main-color);
+            color: var(--dark-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 15px var(--shadow-light);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--shadow-light);
+            background: #00e078;
+        }
+        /* Trainers Section */
+        .trainers-slider {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .trainers-wrapper {
+            display: flex;
+            gap: 20px;
+            padding: 0 50px;
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(0);
+        }
+        .trainer-card {
+            flex-shrink: 0;
+            width: calc(25% - 15px);
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .trainer-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--main-color);
+            box-shadow: 0 0 15px var(--shadow-light);
+            margin-bottom: 15px;
+        }
+        .trainer-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .trainer-card p {
+            font-size: 0.9em;
+            font-weight: 300;
+        }
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .slider-nav button {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: var(--main-color);
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .slider-nav button:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        .trainer-card .btn {
+            margin-top: 15px;
+            font-size: 0.9em;
+            padding: 10px 20px;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        /* Pricing Section - Simple Table */
+        .pricing-table-container {
+            max-width: 800px;
+            margin: auto;
+            border: 2px solid var(--main-color);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .pricing-table th, .pricing-table td {
+            padding: 20px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        .pricing-table thead th {
+            background: #222;
+            color: var(--main-color);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5em;
+            text-transform: uppercase;
+        }
+        .pricing-table tbody td {
+            background: #1a1a1a;
+            font-size: 1.1em;
+        }
+        .pricing-table .price-cell {
+            font-weight: bold;
+            font-size: 1.8em;
+            color: var(--main-color);
+        }
+        .pricing-table .price-cell span {
+            font-size: 0.6em;
+            font-weight: normal;
+        }
+        .pricing-table tbody tr:hover {
+            background: #222;
+        }
+        /* Testimonials Section */
+        .testimonials-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        .testimonial-card {
+            background: #222;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 350px;
+            text-align: left;
+            position: relative;
+            border-left: 5px solid var(--main-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--main-color);
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--shadow-light);
+        }
+        .testimonial-card p {
+            margin-top: 50px;
+            font-style: italic;
+        }
+        .testimonial-card .author {
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: right;
+            color: var(--main-color);
+        }
+        /* Why Us Section */
+        .why-us-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .why-us-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--main-color);
+            transition: transform 0.3s ease;
+        }
+        .why-us-item:hover {
+            transform: translateX(10px);
+        }
+        .why-us-item .icon {
+            font-size: 2.5em;
+            color: var(--main-color);
+        }
+        .why-us-item h3 {
+            font-family: 'Anton', sans-serif;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .why-us-item p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            white-space: normal;
+            height: auto;
+            overflow: visible;
+        }
+        /* Accordion Style */
+        .accordion-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: var(--main-color);
+            text-shadow: 1px 1px 5px var(--shadow-light);
+            margin-bottom: 30px;
+        }
+        .accordion-header h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .accordion-header .icon {
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            text-align: center;
+        }
+        .accordion-content.open {
+            max-height: none;
+        }
+        /* Working Hours Section */
+        #hours {
+            padding-top: 40px;
+        }
+        .hours-table {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            border: 2px solid var(--main-color);
+            border-radius: 15px;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+        .hours-table th, .hours-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        .hours-table th {
+            background: #222;
+            color: var(--main-color);
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2em;
+        }
+        .hours-table td {
+            font-size: 1.1em;
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+        }
+        /* Footer Social Icons */
+        .social-icons {
+            margin-bottom: 20px;
+        }
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 2em;
+            margin: 0 15px;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--main-color);
+            transform: scale(1.2);
+        }
+        @media (max-width: 768px) {
+            .hero-content .logo-img {
+                max-width: 200px;
+                margin-bottom: 15px;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            .accordion-header h2 {
+                font-size: 1.5em;
+            }
+            .trainers-wrapper {
+                padding: 0 20px;
+            }
+            .trainer-card {
+                width: 100%;
+            }
+            .trainer-card .btn {
+                padding: 10px 15px;
+                font-size: 0.8em;
+            }
+            .pricing-table-container {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+            .pricing-table {
+                display: block;
+                width: 100%;
+            }
+            .pricing-table thead, .pricing-table tbody {
+                display: table;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .pricing-table th, .pricing-table td {
+                padding: 10px;
+                display: table-cell;
+                border: 1px solid #333;
+                text-align: center;
+                vertical-align: top;
+            }
+            .pricing-table tbody td:nth-child(3) {
+                font-size: 0.85em;
+            }
+            .why-us-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .hours-table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-gym-room-with-several-machines-1543-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="lang-toggle">
+            <img src="https://flagcdn.com/dz.svg" alt="Arabic" title="عربي" />
+            <img src="https://flagcdn.com/gb.svg" alt="English" title="English" />
+        </div>
+    </header>
+
+    <div class="hero-section" id="hero">
+        <div class="hero-content">
+            <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
+            <h1>LA DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+            <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+            <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </div>
+
+    <section id="trainers">
+        <h2>NOS COACHS PROFESSIONNELS</h2>
+        <div class="trainers-slider">
+            <div class="trainers-wrapper">
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach John Doe">
+                    <h3>John Doe</h3>
+                    <p>Spécialiste de la musculation et de la prise de masse.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Mike Smith">
+                    <h3>Mike Smith</h3>
+                    <p>Expert en perte de poids et en nutrition.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Sarah Connor">
+                    <h3>Sarah Connor</h3>
+                    <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Alex Turner">
+                    <h3>Alex Turner</h3>
+                    <p>Spécialiste de la boxe et des sports de combat.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Contactez votre coach</span>
+                    </a>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button onclick="moveSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="moveSlider(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarifs">
+        <h2>NOS TARIFS</h2>
+        <div class="pricing-table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>BAQUE</th>
+                        <th>PRIX</th>
+                        <th>AVANTAGES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                        <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                    </tr>
+                    <tr>
+                        <td>4 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                        <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                    </tr>
+                    <tr>
+                        <td>3 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                        <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="avis">
+        <h2>CE QUE NOS MEMBRES EN DISENT</h2>
+        <div class="testimonials-wrapper">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQ3fHxvZmZpY2V3b3JraW5nJTIwbWFufGVufDB8fHx8MTYyMTE3ODQxNA&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                <p>"J'avais perdu ma forme physique avec l'âge, mais après m'être inscrit à la salle, j'ai retrouvé ma vitalité grâce aux meilleurs et derniers équipements."</p>
+                <div class="author">- Ahmed, 62 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1549727402-9ae9d4e5f039?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIyfHxvYmVzZSUyMG1hbnxlbnwwfHx8fDE2NTI4NzcwNzg&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                <p>"Après un effort personnel et l'aide de mes coachs, j'ai réussi à perdre beaucoup de poids et à atteindre le corps de mes rêves. C'est incroyable !"</p>
+                <div class="author">- Kamel, 30 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1582293450953-294b6c65b16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhY2h8MjB8fGZpdG5lc3MlMjB3b21hbnxlbnwwfHx8fDE2٥٢٨٧٧٥٦٩&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                <p>"Je souffrais de dépression sévère. Après m'être inscrite ici, je suis devenue une autre personne. L'ambiance familiale m'a motivée à continuer."</p>
+                <div class="author">- Fatima, 25 ans</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us">
+        <div class="accordion-header" onclick="toggleAccordion()">
+            <h2>POURQUOI OXYGENE GYM ?</h2>
+            <i class="fas fa-chevron-down icon"></i>
+        </div>
+        <div class="accordion-content">
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;">
+                Notre salle est unique en son genre à Tlemcen ! Nous ne nous contentons pas d'être un simple centre de musculation. Nous vous offrons une expérience complète, avec des équipements ultramodernes, des sports variés comme le **Kickboxing** et le **Zumba** pour femmes, ainsi que des espaces dédiés aux enfants pour un environnement familial et convivial. Nous sommes fiers d'être la référence numéro un à Tlemcen, un titre que nous avons gagné par le dévouement et le travail acharné de toute notre équipe, qui veille sur votre confort et votre progression.
+            </p>
+            <div class="why-us-container">
+                <div class="why-us-item">
+                    <i class="fas fa-dumbbell icon"></i>
+                    <div>
+                        <h3>Équipements Modernes</h3>
+                        <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                    </div>
+                </div>
+                <div class="why-us-item">
+                    <i class="fas fa-users-line icon"></i>
+                    <div>
+                        <h3>Coaching Professionnel</h3>
+                        <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                    </div>
+                </div>
+                <div class="why-us-item">
+                    <i class="fas fa-hand-holding-heart icon"></i>
+                    <div>
+                        <h3>Ambiance Familiale</h3>
+                        <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hours">
+        <h2>HEURES D'OUVERTURE</h2>
+        <table class="hours-table">
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Heures</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Samedi - Jeudi</td>
+                    <td>08:00 - 22:00</td>
+                </tr>
+                <tr>
+                    <td>Vendredi</td>
+                    <td>
+                        <p>08:00 - 12:00</p>
+                        <p>16:00 - 22:00</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/YourFacebookHandle" target="_blank" title="Suivez-nous sur Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://maps.app.goo.gl/YourLocation" target="_blank" title="Trouvez-nous sur Google Maps">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+            <a href="https://www.tiktok.com/@YourTikTokHandle" target="_blank" title="Suivez-نا على TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/YourInstagramHandle" target="_blank" title="Suivez-nous sur Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".hero-content .logo-img", {duration: 1.5, y: -50, opacity: 0, ease: "power4.out"});
+        gsap.from(".hero-content h1", {duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5});
+        gsap.from(".hero-content p", {duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1});
+        gsap.from(".hero-content .btn", {duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1.5});
+
+        const sections = ["#trainers", "#tarifs", "#avis", "#why-us", "#hours"];
+        sections.forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none none"
+                },
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
+
+        const sliderWrapper = document.querySelector('.trainers-wrapper');
+        const totalTrainers = document.querySelectorAll('.trainer-card').length;
+        let currentTrainerIndex = 0;
+
+        function moveSlider(direction) {
+            const gap = 20;
+            const cardWidth = document.querySelector('.trainer-card').offsetWidth;
+            const cardsToShow = window.innerWidth <= 768 ? 1 : 4;
+
+            if (direction === 1) {
+                currentTrainerIndex = (currentTrainerIndex + 1) % totalTrainers;
+            } else if (direction === -1) {
+                currentTrainerIndex = (currentTrainerIndex - 1 + totalTrainers) % totalTrainers;
+            }
+
+            let translateX = -currentTrainerIndex * (cardWidth + gap);
+            sliderWrapper.style.transform = `translateX(${translateX}px)`;
+        }
+
+        window.addEventListener('resize', () => {
+            currentTrainerIndex = 0;
+            moveSlider(0);
+        });
+
+        moveSlider(0);
+
+        function toggleAccordion() {
+            const accordionHeader = document.querySelector('.accordion-header');
+            const accordionContent = document.querySelector('.accordion-content');
+
+            accordionHeader.classList.toggle('active');
+            accordionContent.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

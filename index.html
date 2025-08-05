@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYGENE GYM - Offres & Concours</title>
+    <title>OXYGENE GYM - Détails</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -13,6 +13,8 @@
             --main-color: #00ff88;
             --dark-bg: #111;
             --text-color: #f0f0f0;
+            --shadow-light: rgba(0, 255, 136, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.8);
             --orange-light: #FF8C00;
         }
         * {
@@ -96,70 +98,107 @@
             font-size: 1.5em;
             color: var(--orange-light);
         }
-        
-        /* Offers Section */
-        #offers-section {
-            min-height: calc(100vh - 100px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            max-width: 800px;
+
+        /* Details Section */
+        #details-section {
+            padding: 80px 20px;
+            max-width: 1200px;
             margin: auto;
+            min-height: calc(100vh - 100px); /* يضمن عدم اختفاء المحتوى */
         }
-        .offers-title {
+        .main-title {
             font-family: 'Anton', sans-serif;
             font-size: 4em;
+            text-align: center;
             color: var(--main-color);
-            text-shadow: 2px 2px 10px rgba(0, 255, 136, 0.5);
+            text-shadow: 2px 2px 10px var(--shadow-light);
             margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(-50px);
         }
-        .offers-intro {
-            font-size: 1.5em;
-            font-weight: 300;
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(50px);
+        .main-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: auto;
+            margin-bottom: 50px;
         }
-        .offers-icon {
-            font-size: 6em;
-            color: var(--orange-light);
+
+        /* Accordion Styles */
+        .accordion-item {
+            background-color: #1a1a1a;
+            border-radius: 10px;
             margin-bottom: 20px;
-            animation: pulse 2s infinite ease-in-out;
-            opacity: 0;
-            transform: scale(0.5);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border-left: 5px solid var(--orange-light);
+            overflow: hidden;
         }
-        .offers-cta {
+        .accordion-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-family: 'Anton', sans-serif;
-            font-size: 2em;
-            color: var(--text-color);
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-            opacity: 0;
-        }
-        .offers-soon {
-            font-family: 'Poppins', sans-serif;
             font-size: 1.5em;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #222;
+        }
+        .accordion-header .icon {
+            font-size: 1em;
             color: var(--orange-light);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: breathe 3s infinite ease-in-out;
-            opacity: 0;
+            transition: transform 0.3s ease;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
         }
-        @keyframes breathe {
-            0% { opacity: 0.7; }
-            50% { opacity: 1; }
-            100% { opacity: 0.7; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 25px;
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* Adjust as needed */
+            padding: 25px;
+        }
+        .accordion-content p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .accordion-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .accordion-content ul li {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .accordion-content ul li .fas {
+            color: var(--main-color);
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+        .image-grid img:hover {
+            transform: scale(1.05);
         }
 
         /* Footer */
@@ -171,6 +210,7 @@
             font-size: 0.9em;
             border-top: 1px solid #333;
         }
+        /* Footer Social Icons */
         .social-icons {
             margin-bottom: 20px;
         }
@@ -185,16 +225,10 @@
             transform: scale(1.2);
         }
         @media (max-width: 768px) {
-            .offers-title {
-                font-size: 2.5em;
+            .main-title {
+                font-size: 3em;
             }
-            .offers-intro {
-                font-size: 1.2em;
-            }
-            .offers-cta {
-                font-size: 1.5em;
-            }
-            .offers-soon {
+            .accordion-header {
                 font-size: 1.2em;
             }
         }
@@ -227,20 +261,72 @@
         </a>
     </div>
 
-    <main id="offers-section">
-        <h1 class="offers-title">Nos Offres et Concours</h1>
-        <p class="offers-intro">
-            L'équipe OXYGENE GYM pense toujours à vous et vous surprend régulièrement avec des offres et des cadeaux exceptionnels !
+    <main id="details-section">
+        <h1 class="main-title">OXYGENE GYM TLEMCEN</h1>
+        <p class="main-subtitle">
+            Notre salle n'est pas seulement un lieu pour la musculation, mais un centre complet pour le bien-être avec une variété de sports pour tous. Découvrez-en plus sur nos activités.
         </p>
-        
-        <i class="fas fa-gift offers-icon"></i>
-        
-        <p class="offers-cta">
-            Restez à l'affût pour profiter de la prochaine offre !
-        </p>
-        <p class="offers-soon">
-            Nous arrivons bientôt...
-        </p>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <h3>Activités principales</h3>
+                <i class="fas fa-chevron-down icon"></i>
+            </div>
+            <div class="accordion-content">
+                <p>
+                    Nous offrons une large gamme de disciplines sportives pour répondre à tous les goûts et objectifs.
+                </p>
+                <ul>
+                    <li><i class="fas fa-fist-raised"></i>Arts martiaux (Kickboxing, Boxe...)</li>
+                    <li><i class="fas fa-dumbbell"></i>Haltérophilie et musculation</li>
+                    <li><i class="fas fa-music"></i>Zumba pour femmes (dans un espace dédié)</li>
+                    <li><i class="fas fa-child"></i>Espaces pour enfants avec encadrement qualifié</li>
+                </ul>
+                <p>
+                    Toutes ces activités sont encadrées par des entraîneurs hautement qualifiés et professionnels.
+                </p>
+                <div class="image-grid">
+                    <img src="https://images.unsplash.com/photo-1549727402-9ae9d4e5f039?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIyfHxvYmVzZSUyMG1hbnxlbnwwfHx8fDE2NTI4NzcwNzg&ixlib=rb-1.2.1&q=80&w=400" alt="Activity image 1">
+                    <img src="https://images.unsplash.com/photo-1579758509873-10d93175896a?q=80&w=1770&auto=format&fit=crop" alt="Activity image 2">
+                    <img src="https://images.unsplash.com/photo-1582293450953-294b6c65b16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIwfHxmZml0bmVzcyUyMHdvbWFufGVufDB8fHx8MTY1Mj
+                    ٧٧٥٦٩&ixlib=rb-1.2.1&q=80&w=400" alt="Activity image 3">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1770&auto=format&fit=crop" alt="Activity image 4">
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <h3>Notre salle est-elle vraiment mixte ?</h3>
+                <i class="fas fa-chevron-down icon"></i>
+            </div>
+            <div class="accordion-content">
+                <p>
+                    En effet, notre salle est mixte, accueillant hommes et femmes. Cependant, nous avons une grande superficie qui nous permet de dédier des espaces distincts pour chaque sexe et chaque activité. Par exemple, la section Zumba pour femmes est située dans un espace totalement séparé de l'espace de musculation pour hommes.
+                </p>
+                <p>
+                    De plus, pour respecter toutes les catégories de la société, nous proposons des créneaux horaires spéciaux où la salle est réservée exclusivement aux femmes.
+                </p>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <h3>Y a-t-il quelque chose à manger ?</h3>
+                <i class="fas fa-chevron-down icon"></i>
+            </div>
+            <div class="accordion-content">
+                <p>
+                    Absolument ! L'équipe OXYGENE GYM a pensé à tout. Nous avons aménagé un espace dédié à la restauration saine pour vous aider à recharger votre énergie.
+                </p>
+                <p>
+                    Vous y trouverez des plats sains et des boissons naturelles, le tout préparé par des cuisiniers professionnels en nutrition sportive.
+                </p>
+                <div class="image-grid">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a8706aa24e0b?q=80&w=1770&auto=format&fit=crop" alt="Food image">
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -264,6 +350,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        // Sidebar toggle logic
         const navToggle = document.getElementById('nav-toggle');
         const sidebar = document.getElementById('sidebar');
 
@@ -278,12 +365,45 @@
             }
         });
 
-        // GSAP animations for offers page
-        gsap.to(".offers-title", { duration: 1, y: 0, opacity: 1, ease: "power2.out" });
-        gsap.to(".offers-intro", { duration: 1, y: 0, opacity: 1, delay: 0.5, ease: "power2.out" });
-        gsap.to(".offers-icon", { duration: 1, scale: 1, opacity: 1, delay: 1, ease: "bounce.out" });
-        gsap.to(".offers-cta", { duration: 1, opacity: 1, delay: 1.5, ease: "power2.out" });
-        gsap.to(".offers-soon", { duration: 1, opacity: 1, delay: 2, ease: "power2.out" });
+        // GSAP animations for details page
+        gsap.from(".main-title", {
+            duration: 1,
+            y: -50,
+            opacity: 0,
+            ease: "power2.out"
+        });
+
+        gsap.from(".main-subtitle", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.5,
+            ease: "power2.out"
+        });
+
+        gsap.from(".accordion-item", {
+            scrollTrigger: {
+                trigger: "#details-section",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            stagger: 0.3,
+            ease: "power2.out"
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.icon');
+
+                header.classList.toggle('active');
+                content.classList.toggle('open');
+            });
+        });
     </script>
 </body>
 </html>

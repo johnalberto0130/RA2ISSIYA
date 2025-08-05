@@ -15,6 +15,7 @@
             --text-color: #f0f0f0;
             --shadow-light: rgba(0, 255, 136, 0.5);
             --shadow-dark: rgba(0, 0, 0, 0.8);
+            --orange-light: #FF8C00; /* اللون البرتقالي المضيء */
         }
         * {
             margin: 0;
@@ -29,6 +30,7 @@
             background-color: var(--dark-bg);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         .video-background {
             position: fixed;
@@ -71,18 +73,62 @@
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .lang-toggle {
+        .nav-toggle {
             display: flex;
-            gap: 10px;
-        }
-        .lang-toggle img {
+            flex-direction: column;
+            justify-content: space-between;
             width: 30px;
+            height: 22px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: transform 0.3s;
         }
-        .lang-toggle img:hover {
-            transform: scale(1.1);
+        .nav-toggle span {
+            display: block;
+            height: 3px;
+            background-color: var(--orange-light);
+            border-radius: 3px;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(9.5px) rotate(45deg);
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-9.5px) rotate(-45deg);
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            z-index: 1001;
+            padding-top: 80px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            transition: left 0.5s ease-in-out;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+        .sidebar-item:hover {
+            background-color: #222;
+        }
+        .sidebar-item .icon {
+            margin-right: 20px;
+            font-size: 1.5em;
+            color: var(--orange-light);
         }
         .hero-section {
             height: 100vh;
@@ -94,6 +140,7 @@
             position: relative;
             padding: 0 20px;
             color: var(--text-color);
+            z-index: 1;
         }
         .hero-content {
             z-index: 10;
@@ -477,8 +524,6 @@
                 padding: 10px;
                 display: table-cell;
                 border: 1px solid #333;
-                text-align: center;
-                vertical-align: top;
             }
             .pricing-table tbody td:nth-child(3) {
                 font-size: 0.85em;
@@ -502,183 +547,194 @@
         </video>
     </div>
     <div class="video-overlay"></div>
-
     <header>
-        <div class="lang-toggle">
-            <img src="https://flagcdn.com/dz.svg" alt="Arabic" title="عربي" />
-            <img src="https://flagcdn.com/gb.svg" alt="English" title="English" />
+        <div class="nav-toggle" id="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </header>
-
-    <div class="hero-section" id="hero">
-        <div class="hero-content">
-            <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
-            <h1>LA DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
-            <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
-            <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
-        </div>
+    <div class="sidebar" id="sidebar">
+        <a href="index.html" class="sidebar-item">
+            <i class="fas fa-home icon"></i>
+            <span>Home</span>
+        </a>
+        <a href="details.html" class="sidebar-item">
+            <i class="fas fa-info-circle icon"></i>
+            <span>Autres détails sur la salle</span>
+        </a>
+        <a href="gallery.html" class="sidebar-item">
+            <i class="fas fa-images icon"></i>
+            <span>Gallérie</span>
+        </a>
+        <a href="offers.html" class="sidebar-item">
+            <i class="fas fa-bullhorn icon"></i>
+            <span>Offres et concours</span>
+        </a>
     </div>
 
-    <section id="trainers">
-        <h2>NOS COACHS PROFESSIONNELS</h2>
-        <div class="trainers-slider">
-            <div class="trainers-wrapper">
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach John Doe">
-                    <h3>John Doe</h3>
-                    <p>Spécialiste de la musculation et de la prise de masse.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Mike Smith">
-                    <h3>Mike Smith</h3>
-                    <p>Expert en perte de poids et en nutrition.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Sarah Connor">
-                    <h3>Sarah Connor</h3>
-                    <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Alex Turner">
-                    <h3>Alex Turner</h3>
-                    <p>Spécialiste de la boxe et des sports de combat.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button onclick="moveSlider(-1)"><i class="fas fa-chevron-left"></i></button>
-                <button onclick="moveSlider(1)"><i class="fas fa-chevron-right"></i></button>
+    <div id="main-content">
+        <div class="hero-section" id="hero">
+            <div class="hero-content">
+                <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
+                <h1>LA DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+                <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+                <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
             </div>
         </div>
-    </section>
 
-    <section id="tarifs">
-        <h2>NOS TARIFS</h2>
-        <div class="pricing-table-container">
-            <table class="pricing-table">
+        <section id="trainers">
+            <h2>NOS COACHS PROFESSIONNELS</h2>
+            <div class="trainers-slider">
+                <div class="trainers-wrapper">
+                    <div class="trainer-card">
+                        <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach John Doe">
+                        <h3>John Doe</h3>
+                        <p>Spécialiste de la musculation et de la prise de masse.</p>
+                        <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                        </a>
+                    </div>
+                    <div class="trainer-card">
+                        <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Mike Smith">
+                        <h3>Mike Smith</h3>
+                        <p>Expert en perte de poids et en nutrition.</p>
+                        <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                        </a>
+                    </div>
+                    <div class="trainer-card">
+                        <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Sarah Connor">
+                        <h3>Sarah Connor</h3>
+                        <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                        <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                        </a>
+                    </div>
+                    <div class="trainer-card">
+                        <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Alex Turner">
+                        <h3>Alex Turner</h3>
+                        <p>Spécialiste de la boxe et des sports de combat.</p>
+                        <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <button onclick="moveSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button onclick="moveSlider(1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+        <section id="tarifs">
+            <h2>NOS TARIFS</h2>
+            <div class="pricing-table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>BAQUE</th>
+                            <th>PRIX</th>
+                            <th>AVANTAGES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>6 SÉANCES / SEMAINE</td>
+                            <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                            <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                        </tr>
+                        <tr>
+                            <td>4 SÉANCES / SEMAINE</td>
+                            <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                            <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                        </tr>
+                        <tr>
+                            <td>3 SÉANCES / SEMAINE</td>
+                            <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                            <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="avis">
+            <h2>CE QUE NOS MEMBRES EN DISENT</h2>
+            <div class="testimonials-wrapper">
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQ3fHxvZmZpY2V3b3JraW5nJTIwbWFufGVufDB8fHx8MTYyMTE3ODQxNA&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                    <p>"J'avais perdu ma forme physique avec l'âge, mais après m'être inscrit à la salle, j'ai retrouvé ma vitalité grâce aux meilleurs et derniers équipements."</p>
+                    <div class="author">- Ahmed, 62 ans</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1549727402-9ae9d4e5f039?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIyfHxvYmVzZSUyMG1hbnxlbnwwfHx8fDE2NTI4NzcwNzg&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                    <p>"Après un effort personnel et l'aide de mes coachs, j'ai réussi à perdre beaucoup de poids et à atteindre le corps de mes rêves. C'est incroyable !"</p>
+                    <div class="author">- Kamel, 30 ans</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1582293450953-294b6c65b16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIwfHxmZml0bmVzcyUyMHdvbWFufGVufDB8fHx8MTY1Mj
+                    ٧٧٥٦٩&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
+                    <p>"Je souffrais de dépression sévère. Après m'être inscrite ici, je suis devenue une autre personne. L'ambiance familiale m'a motivée à continuer."</p>
+                    <div class="author">- Fatima, 25 ans</div>
+                </div>
+            </div>
+        </section>
+        <section id="why-us">
+            <div class="accordion-header" onclick="toggleAccordion()">
+                <h2>POURQUOI OXYGENE GYM ?</h2>
+                <i class="fas fa-chevron-down icon"></i>
+            </div>
+            <div class="accordion-content">
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est unique en son genre à Tlemcen ! Nous ne nous contentons pas d'être un simple centre de musculation. Nous vous offrons une expérience complète, avec des équipements ultramodernes, des sports variés comme le **Kickboxing** et le **Zumba** pour femmes, ainsi que des espaces dédiés aux enfants pour un environnement familial et convivial. Nous sommes fiers d'être la référence numéro un à Tlemcen, un titre que nous avons gagné par le dévouement et le travail acharné de toute notre équipe, qui veille sur votre confort et votre progression. </p>
+                <div class="why-us-container">
+                    <div class="why-us-item">
+                        <i class="fas fa-dumbbell icon"></i>
+                        <div>
+                            <h3>Équipements Modernes</h3>
+                            <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                        </div>
+                    </div>
+                    <div class="why-us-item">
+                        <i class="fas fa-users-line icon"></i>
+                        <div>
+                            <h3>Coaching Professionnel</h3>
+                            <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                        </div>
+                    </div>
+                    <div class="why-us-item">
+                        <i class="fas fa-hand-holding-heart icon"></i>
+                        <div>
+                            <h3>Ambiance Familiale</h3>
+                            <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="hours">
+            <h2>HEURES D'OUVERTURE</h2>
+            <table class="hours-table">
                 <thead>
                     <tr>
-                        <th>BAQUE</th>
-                        <th>PRIX</th>
-                        <th>AVANTAGES</th>
+                        <th>Jour</th>
+                        <th>Heures</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>6 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
-                        <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                        <td>Samedi - Jeudi</td>
+                        <td>08:00 - 22:00</td>
                     </tr>
                     <tr>
-                        <td>4 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
-                        <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
-                    </tr>
-                    <tr>
-                        <td>3 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
-                        <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                        <td>Vendredi</td>
+                        <td>
+                            <p>08:00 - 12:00</p>
+                            <p>16:00 - 22:00</p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </section>
-
-    <section id="avis">
-        <h2>CE QUE NOS MEMBRES EN DISENT</h2>
-        <div class="testimonials-wrapper">
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDQ3fHxvZmZpY2V3b3JraW5nJTIwbWFufGVufDB8fHx8MTYyMTE3ODQxNA&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
-                <p>"J'avais perdu ma forme physique avec l'âge, mais après m'être inscrit à la salle, j'ai retrouvé ma vitalité grâce aux meilleurs et derniers équipements."</p>
-                <div class="author">- Ahmed, 62 ans</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1549727402-9ae9d4e5f039?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhcmNofDIyfHxvYmVzZSUyMG1hbnxlbnwwfHx8fDE2NTI4NzcwNzg&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
-                <p>"Après un effort personnel et l'aide de mes coachs, j'ai réussi à perdre beaucoup de poids et à atteindre le corps de mes rêves. C'est incroyable !"</p>
-                <div class="author">- Kamel, 30 ans</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1582293450953-294b6c65b16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTY3NXwwfDF8c2VhY2h8MjB8fGZpdG5lc3MlMjB3b21hbnxlbnwwfHx8fDE2٥٢٨٧٧٥٦٩&ixlib=rb-1.2.1&q=80&w=400" alt="Avis client">
-                <p>"Je souffrais de dépression sévère. Après m'être inscrite ici, je suis devenue une autre personne. L'ambiance familiale m'a motivée à continuer."</p>
-                <div class="author">- Fatima, 25 ans</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="why-us">
-        <div class="accordion-header" onclick="toggleAccordion()">
-            <h2>POURQUOI OXYGENE GYM ?</h2>
-            <i class="fas fa-chevron-down icon"></i>
-        </div>
-        <div class="accordion-content">
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;">
-                Notre salle est unique en son genre à Tlemcen ! Nous ne nous contentons pas d'être un simple centre de musculation. Nous vous offrons une expérience complète, avec des équipements ultramodernes, des sports variés comme le **Kickboxing** et le **Zumba** pour femmes, ainsi que des espaces dédiés aux enfants pour un environnement familial et convivial. Nous sommes fiers d'être la référence numéro un à Tlemcen, un titre que nous avons gagné par le dévouement et le travail acharné de toute notre équipe, qui veille sur votre confort et votre progression.
-            </p>
-            <div class="why-us-container">
-                <div class="why-us-item">
-                    <i class="fas fa-dumbbell icon"></i>
-                    <div>
-                        <h3>Équipements Modernes</h3>
-                        <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
-                    </div>
-                </div>
-                <div class="why-us-item">
-                    <i class="fas fa-users-line icon"></i>
-                    <div>
-                        <h3>Coaching Professionnel</h3>
-                        <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
-                    </div>
-                </div>
-                <div class="why-us-item">
-                    <i class="fas fa-hand-holding-heart icon"></i>
-                    <div>
-                        <h3>Ambiance Familiale</h3>
-                        <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="hours">
-        <h2>HEURES D'OUVERTURE</h2>
-        <table class="hours-table">
-            <thead>
-                <tr>
-                    <th>Jour</th>
-                    <th>Heures</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Samedi - Jeudi</td>
-                    <td>08:00 - 22:00</td>
-                </tr>
-                <tr>
-                    <td>Vendredi</td>
-                    <td>
-                        <p>08:00 - 12:00</p>
-                        <p>16:00 - 22:00</p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        </section>
+    </div>
 
     <footer>
         <div class="social-icons">
@@ -700,7 +756,6 @@
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
-
         gsap.from(".hero-content .logo-img", {duration: 1.5, y: -50, opacity: 0, ease: "power4.out"});
         gsap.from(".hero-content h1", {duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5});
         gsap.from(".hero-content p", {duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1});
@@ -730,13 +785,11 @@
             const gap = 20;
             const cardWidth = document.querySelector('.trainer-card').offsetWidth;
             const cardsToShow = window.innerWidth <= 768 ? 1 : 4;
-
             if (direction === 1) {
                 currentTrainerIndex = (currentTrainerIndex + 1) % totalTrainers;
             } else if (direction === -1) {
                 currentTrainerIndex = (currentTrainerIndex - 1 + totalTrainers) % totalTrainers;
             }
-
             let translateX = -currentTrainerIndex * (cardWidth + gap);
             sliderWrapper.style.transform = `translateX(${translateX}px)`;
         }
@@ -745,16 +798,28 @@
             currentTrainerIndex = 0;
             moveSlider(0);
         });
-
         moveSlider(0);
 
         function toggleAccordion() {
             const accordionHeader = document.querySelector('.accordion-header');
             const accordionContent = document.querySelector('.accordion-content');
-
             accordionHeader.classList.toggle('active');
             accordionContent.classList.toggle('open');
         }
+
+        const navToggle = document.getElementById('nav-toggle');
+        const sidebar = document.getElementById('sidebar');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            if (sidebar.classList.contains('open')) {
+                gsap.to(sidebar, { duration: 0.5, left: "-300px", ease: "power2.in" });
+                sidebar.classList.remove('open');
+            } else {
+                gsap.to(sidebar, { duration: 0.5, left: "0px", ease: "power2.out" });
+                sidebar.classList.add('open');
+            }
+        });
     </script>
 </body>
 </html>
